@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "category": "sweden",
+        "image": "here will be the url to image",
+        "description": "here we add description about destination"
+     },
+    {
+        "id": 2,
+        "category": "sweden",
+        "image": "here will be the url to image",
+        "description": "here we add description about destination"
+    },
+    {
+        "id": 3,
+        "category": "europe",
+        "image": "./assets/guesthouse.jpeg",
+        "description": "here we add description about destination"
+    },
+    {
+        "id": 4,
+        "category": "worldwide",
+        "image": "here will be the url to image",
+        "description": "here we add description about destination"
+    },
+    {
+        "id": 5,
+        "category": "sweden",
+        "image": "here will be the url to image",
+        "description": "here we add description about destination"
+    }
+]
