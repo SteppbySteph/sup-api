@@ -2,31 +2,106 @@
     {
         "id": 1,
         "category": "sweden",
-        "image": "here will be the url to image",
-        "description": "here we add description about destination"
+        "place": "Göta Kanal",
+        "image": "./assets/gota-kanal.jpeg",
+        "description": "With its 190 km, the Göta Canal offers a unique paddle environment. The canal has both longer and shorter paddle-friendly stretches with many attractions along the way."
      },
     {
         "id": 2,
         "category": "sweden",
-        "image": "here will be the url to image",
-        "description": "here we add description about destination"
+        "place": "Åre",
+        "image": "./assets/are.jpeg",
+        "description": "Here you can experience crystal clear water from your SUP board, while you breathe refreshing mountain air. At Åresjön, paddling is offered on remote beaches overlooking mountain peaks."
     },
     {
         "id": 3,
-        "category": "europe",
-        "image": "./assets/guesthouse.jpeg",
-        "description": "here we add description about destination"
+        "category": "sweden",
+        "place": "Bohuslän",
+        "image": "./assets/bohuslan.jpeg",
+        "description": "Float over the oysters and feel the salt in the air. On the west coast, surrounded by fine beaches and archipelago classic boathouses, you can paddle among cobs and skerries. "
     },
     {
         "id": 4,
-        "category": "worldwide",
-        "image": "here will be the url to image",
-        "description": "here we add description about destination"
+        "category": "sweden",
+        "place": "Kullaberg",
+        "image": "./assets/kullaberg.jpeg",
+        "description": "On the peninsula Kullen are Kullaberg's dramatic cliffs that stretch out to Öresund. If you are lucky on your side, you may encounter a seal or a porpoise during the adventure."
     },
     {
         "id": 5,
         "category": "sweden",
-        "image": "here will be the url to image",
-        "description": "here we add description about destination"
+        "place": "Stockholm",
+        "image": "./assets/stockholm.jpeg",
+        "description": "From Reimersholme you can discover Stockholm from the water by paddling to Kungsholmen and further towards the city center."
+    },
+    {
+        "id": 6,
+        "category": "europe",
+        "place": "England - Jurassic Coast",
+        "image": "./assets/england-jurassic-coast.jpeg",
+        "description": "Paddle through the Durdle Door arch and explore one of the best SUP destinations in europe with white-cliff coasts and caves."
+    },
+    {
+        "id": 7,
+        "category": "europe",
+        "place": "Slovenia - Lake Bled",
+        "image": "./assets/slovenia-lake-bled.jpeg",
+        "description": "The picturesque Slovenian lake with a small island in the middle. The boats are crowded out here - so why don't you jump on your paddleboard to explore it?"
+    },
+    {
+        "id": 8,
+        "category": "europe",
+        "place": "Portugal - Lagos",
+        "image": "./assets/portugal-lagos.jpeg",
+        "description": "Paddle in the famouse grottoes of Pinta da Piedade in Lagos and you will encounter a magical SUP tour."
+    },
+    {
+        "id": 9,
+        "category": "europe",
+        "place": "Norway",
+        "image": "./assets/norway-lofoten.jpeg",
+        "description": "Enjoy the small fishing towns from an Arctic enviroment. Unique and delightful landscape like no other!"
+    },
+    {
+        "id": 10,
+        "category": "europe",
+        "place": "Italy - Venice",
+        "image": "./assets/italy-venice.jpeg",
+        "description": "Paddle alongside the gondolas in Venice and enjoy the city from the water."
+    },
+    {
+        "id": 11,
+        "category": "worldwide",
+        "place": "Mexico  - Isla Holbox",
+        "image": "./assets/mexico-isla-holbox.jpeg",
+        "description": "A beautiful little Mexican paradise north of Yucatan Peninsula with a lagoon full of pelicans and flamingos."
+    },
+    {
+        "id": 12,
+        "category": "worldwide",
+        "place": "USA - Lake Tahoe",
+        "image": "./assets/usa-lake-tahoe.jpeg",
+        "description": "This largest alpine lake in North America, is perhaps the most photographed SUP location in the world. Conditions are great from late spring until early fall."
+    },
+    {
+        "id": 13,
+        "category": "worldwide",
+        "place": "Turks and Caicos",
+        "image": "./assets/turks-and-caicos.jpeg",
+        "description": "An archipelago of 40 coral islands surrounded by turquoise waters, the Turks and Caicos Islands are a paddleboarding haven."
+    },
+    {
+        "id": 14,
+        "category": "worldwide",
+        "place": "Hawaii",
+        "image": "./assets/hawaii.jpeg",
+        "description": "The place where SUP was born. Hawaii has everything a paddle boarder could ever want. Look out for sea turtles and whales."
+    },
+    {
+        "id": 15,
+        "category": "worldwide",
+        "place": "Philippines - Boracay",
+        "image": "./assets/philippines-boracay.jpeg",
+        "description": "Glide on the pristine waters of Boracay and enjoy the natural beauty around. Perfect for beginners."
     }
 ]
