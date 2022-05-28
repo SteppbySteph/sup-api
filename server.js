@@ -121,27 +121,27 @@ app.post ("/register", async (req, res) => {
 
 //delete a user  
 app.delete("/users/:id", async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params
 
   try { 
-    const deleted = await User.findOneAndDelete({_id: id});
+    const deleted = await User.findOneAndDelete({_id: id})
     if (deleted) {
       res.status(200).json({
         success: true, 
         response: `User ${deleted.username} has been deleted.`
-      });
+      })
     } else {
       res.status(404).json({
         success: false, response: "Not found"
-      });
+      })
     }
   } catch (error) {
     res.status(400).json({
       success: false, 
       response: error
-    });
+    })
   }
-});
+})
 
 //update user
 app.patch("/users/:id", async (req, res) => {
@@ -151,12 +151,21 @@ app.patch("/users/:id", async (req, res) => {
   try {
     const userToUpdate = await User.findByIdAndUpdate({_id: id}, {username: updatedName})
     if (userToUpdate) {
-      res.status(200).json({success: true, response: `User ${userToUpdate.username} has been updated`})
+      res.status(200).json({
+        success: true, 
+        response: `User ${userToUpdate.username} has been updated`
+      })
     } else {
-      res.status(404).json({success: false, response: "Not found"})
+      res.status(404).json({
+        success: false, 
+        response: "Not found"
+      })
     }
   } catch (error) {
-    res.status(400).json({success: false, response: error})
+    res.status(400).json({
+      success: false, 
+      response: error
+    })
   }
 })
 
@@ -206,9 +215,113 @@ const authenticateUser = async (req, res, next) => {
     res.status(400).json({
       response: error,
       success: false
-    });
+    })
   }
 }
+
+///////////////////////Post section/////////////////////
+const PostSchema = new mongoose.Schema({
+  message: {
+    type: String,
+    required: true,
+    minlength: 5,
+    trim: true
+  },
+  likes: {
+    type: Number,
+    default: 0
+  },
+  createdAt: {
+    type: Date,
+    default: () => new Date()
+  }
+})
+
+const Post = mongoose.model("Post", PostSchema)
+
+//create a post
+app.post("/posts", async (req, res) => {
+  const { message } = req.body
+  try {
+    const newPost = await new Post({ message: message}).save()
+    res.status(201).json({
+      response: newPost, 
+      success: true
+    })
+  } catch (error) {
+    res.status(400).json({
+      response: error,
+      success: false
+    })
+  }
+})
+
+//update likes for a post
+app.post("/posts/:id/likes", async (req, res) => {
+  const { id } = req.params
+  try {
+    const postToUpdate = await Post.findByIdAndUpdate(id, {$inc: {likes: 1}})
+    res.status(200).json({
+      response: `Likes for ${postToUpdate.message} has been increased`, 
+      success: true
+    })
+  } catch (error) {
+    res.status(400).json({
+      response: error,
+      success: false
+    })
+  }
+})
+
+//delete a post 
+app.delete("/posts/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try { 
+    const deleted = await Post.findOneAndDelete({_id: id});
+    if (deleted) {
+      res.status(200).json({
+        success: true, 
+        response: `Post with this message ${deleted.message} has been deleted.`
+      });
+    } else {
+      res.status(404).json({
+        success: false, response: "Not found"
+      })
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false, 
+      response: error
+    })
+  }
+})
+
+//update post message
+app.patch("/posts/:id", async (req, res) => {
+  const { id } = req.params
+  const { updatedMessage } = req.body
+
+  try {
+    const postToUpdate = await Post.findByIdAndUpdate({_id: id}, {message: updatedMessage})
+    if (postToUpdate) {
+      res.status(200).json({
+        success: true, 
+        response: `Post with message ${postToUpdate.message} has been updated`
+      })
+    } else {
+      res.status(404).json({
+        success: false, 
+        response: "Not found"
+      })
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false, 
+      response: error
+    })
+  }
+})
 
 
 
