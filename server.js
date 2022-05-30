@@ -9,11 +9,9 @@ import destinations from "./data/destinations.json"
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/sup-api"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-mongoose.Promise = Promise;
+mongoose.Promise = Promise
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
+
 const port = process.env.PORT || 8080
 const app = express()
 
@@ -21,7 +19,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-// Start defining your routes here
+// Routes
 app.get("/", (req, res) => {
   res.send(listEndpoints(app))
 });
@@ -86,7 +84,7 @@ const User = mongoose.model("User", UserSchema)
 //create a user
 app.post ("/register", async (req, res) => {
 
-  const { username, email, password } = req.body;
+  const { username, email, password } = req.body
   try {
     const salt = bcrypt.genSaltSync()
 
@@ -171,10 +169,10 @@ app.patch("/users/:id", async (req, res) => {
 
 //endpoint for user login
 app.post("/login", async (req, res) => {
-  const { username, password, email } = req.body;
+  const { username, password, email } = req.body
 
   try {
-    const user = await User.findOne({username, email});
+    const user = await User.findOne({username, email})
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
@@ -225,7 +223,7 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 5,
-    trim: true
+    maxlength: 1500,
   },
   likes: {
     type: Number,
@@ -240,7 +238,6 @@ const PostSchema = new mongoose.Schema({
 const Post = mongoose.model("Post", PostSchema)
 
 //if authenticated user  - get posts
-//vill vi ha med pagination? hur bläddrar vi isf om vi vill se flera?
 app.get("/posts", authenticateUser)
 app.get("/posts", async (req, res) => {
   const posts = await Post.find({}).sort({createdAt: -1})
@@ -273,7 +270,7 @@ app.post("/posts/:id/likes", async (req, res) => {
   try {
     const postToUpdate = await Post.findByIdAndUpdate(id, {$inc: {likes: 1}})
     res.status(200).json({
-      response: `Likes for ${postToUpdate.message} has been increased`, 
+      response: `Likes for \'${postToUpdate.message}\' has been increased`, 
       success: true
     })
   } catch (error) {
@@ -286,14 +283,14 @@ app.post("/posts/:id/likes", async (req, res) => {
 
 //delete a post 
 app.delete("/posts/:id", async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params
 
   try { 
-    const deleted = await Post.findOneAndDelete({_id: id});
+    const deleted = await Post.findOneAndDelete({_id: id})
     if (deleted) {
       res.status(200).json({
         success: true, 
-        response: `Post with this message ${deleted.message} has been deleted.`
+        response: `Post with this message \'${deleted.message}\' has been deleted.`
       });
     } else {
       res.status(404).json({
@@ -318,7 +315,7 @@ app.patch("/posts/:id", async (req, res) => {
     if (postToUpdate) {
       res.status(200).json({
         success: true, 
-        response: `Post with message ${postToUpdate.message} has been updated`
+        response: `Post with message \'${postToUpdate.message}\' has been updated`
       })
     } else {
       res.status(404).json({
@@ -333,27 +330,6 @@ app.patch("/posts/:id", async (req, res) => {
     })
   }
 })
-
-
-
-
-
-  // const emailPattern = /.+\@.+\..+/;
-      
-  //   if (email !== passwordTwo) {
-  //     setError("Passwords do not match.");
-  //   } else if (password.match(passwordPattern) && username.length > 4) {
-  //     registerUser({
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ username, password }),
-  //     });
-  //   } else {
-  //     setError(
-  //       "Password needs to be between 8 and 30 characters and contain at least one uppercase letter, one lowercase letter, one special symbol, and one number."
-  //     );
-  //   }
-  // };
 
 
 // Start the server
