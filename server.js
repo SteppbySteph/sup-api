@@ -239,6 +239,17 @@ const PostSchema = new mongoose.Schema({
 
 const Post = mongoose.model("Post", PostSchema)
 
+//if authenticated user  - get posts
+//vill vi ha med pagination? hur bläddrar vi isf om vi vill se flera?
+app.get("/posts", authenticateUser)
+app.get("/posts", async (req, res) => {
+  const posts = await Post.find({}).sort({createdAt: -1})
+  res.status(200).json({
+    response: posts, 
+    success: true
+  })
+})
+
 //create a post
 app.post("/posts", async (req, res) => {
   const { message } = req.body
