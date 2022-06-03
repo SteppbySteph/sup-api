@@ -236,11 +236,11 @@ const PostSchema = new mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
-  },
-  email: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
   }
+  // email: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User"
+  // }
 })
 
 const Post = mongoose.model("Post", PostSchema)
