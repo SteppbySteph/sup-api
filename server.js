@@ -232,6 +232,14 @@ const PostSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: () => new Date()
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  email: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
   }
 })
 
@@ -249,9 +257,15 @@ app.get("/posts", async (req, res) => {
 
 //create a post
 app.post("/posts", async (req, res) => {
-  const { message } = req.body
+  const { message, email, userId } = req.body
   try {
-    const newPost = await new Post({ message: message}).save()
+    const queriedEmail = await User.findOne(email)
+    const queriedUser = await User.findById(userId)
+    const newPost = await new Post({ 
+      message: message,
+      email: queriedEmail,
+      createdBy: queriedUser,
+    }).save()
     res.status(201).json({
       response: newPost, 
       success: true
