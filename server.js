@@ -236,11 +236,11 @@ const PostSchema = new mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
-  },
-  email: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
   }
+  // email: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User"
+  // }
 })
 
 const Post = mongoose.model("Post", PostSchema)
@@ -257,14 +257,14 @@ app.get("/posts", async (req, res) => {
 
 //create a post
 app.post("/posts", async (req, res) => {
-  const { message, email, userId } = req.body
+  const { message, userId} = req.body
   try {
-    const queriedEmail = await User.findOne(email)
+    // const queriedEmail = await User.findOne(email)
     const queriedUser = await User.findById(userId)
     const newPost = await new Post({ 
       message: message,
-      email: queriedEmail,
-      createdBy: queriedUser,
+      // email: queriedEmail,
+      createdBy: queriedUser
     }).save()
     res.status(201).json({
       response: newPost, 
