@@ -257,17 +257,25 @@ app.get("/posts", async (req, res) => {
 
 //create a post
 app.post("/posts", async (req, res) => {
-  const { message, email, userId } = req.body
+   
+  const { message, email } = req.body
   try {
-    const queriedEmail = await User.findOne(email)
-    const queriedUser = await User.findById(userId)
+    const queriedEmail = await User.findOne(email)     
+    // const queriedUser = await User.findById({_id: id})
     const newPost = await new Post({ 
       message: message,
       email: queriedEmail,
-      createdBy: queriedUser,
+      createdBy: queriedEmail
     }).save()
     res.status(201).json({
-      response: newPost, 
+      // response: newPost, 
+      // success: true
+      response: {
+        message: newPost.message,
+        // likes: newPost.likes,
+        email: newPost.email.email,
+        createdBy: newPost.createdBy._id
+      },
       success: true
     })
   } catch (error) {
@@ -277,6 +285,20 @@ app.post("/posts", async (req, res) => {
     })
   }
 })
+
+// res.status(201).json({
+//   response: {
+//     username: newUser.username,
+//     email: newUser.email,
+//     accessToken: newUser.accessToken,
+//     userId: newUser._id
+//   },
+//   success: true
+// })
+
+
+
+Post
 
 //update likes for a post
 app.post("/posts/:id/likes", async (req, res) => {
