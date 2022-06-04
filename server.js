@@ -261,7 +261,7 @@ app.post("/posts", async (req, res) => {
   const { message, email } = req.body
   try {
     const queriedEmail = await User.findOne(email)     
-    // const queriedUser = await User.findById({_id: id})
+    // const queriedUser = await User.findById(userId)
     const newPost = await new Post({ 
       message: message,
       email: queriedEmail,
@@ -271,9 +271,10 @@ app.post("/posts", async (req, res) => {
       // response: newPost, 
       // success: true
       response: {
-        message: newPost.message,
-        // likes: newPost.likes,
-        email: newPost.email.email,
+        newPost,
+        // message: newPost.message,
+        // // likes: newPost.likes,
+        email: newPost.createdBy.email,
         createdBy: newPost.createdBy._id
       },
       success: true
