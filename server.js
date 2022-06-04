@@ -237,10 +237,6 @@ const PostSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   }
-  // email: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "User"
-  // }
 })
 
 const Post = mongoose.model("Post", PostSchema)
@@ -258,24 +254,15 @@ app.get("/posts", async (req, res) => {
 //create a post
 app.post("/posts", async (req, res) => {
    
-  const { message, email } = req.body
+  const { message, userId } = req.body
   try {
-    const queriedEmail = await User.findOne(email)     
-    // const queriedUser = await User.findById({_id: id})
+    const queriedUser = await User.findById(userId)
     const newPost = await new Post({ 
       message: message,
-      email: queriedEmail,
-      createdBy: queriedEmail
+      createdBy: queriedUser
     }).save()
     res.status(201).json({
-      // response: newPost, 
-      // success: true
-      response: {
-        message: newPost.message,
-        // likes: newPost.likes,
-        email: newPost.email.email,
-        createdBy: newPost.createdBy._id
-      },
+      response: newPost, 
       success: true
     })
   } catch (error) {
@@ -285,20 +272,6 @@ app.post("/posts", async (req, res) => {
     })
   }
 })
-
-// res.status(201).json({
-//   response: {
-//     username: newUser.username,
-//     email: newUser.email,
-//     accessToken: newUser.accessToken,
-//     userId: newUser._id
-//   },
-//   success: true
-// })
-
-
-
-Post
 
 //update likes for a post
 app.post("/posts/:id/likes", async (req, res) => {
