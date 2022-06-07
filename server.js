@@ -220,6 +220,7 @@ const authenticateUser = async (req, res, next) => {
 ///////////////////////Post section/////////////////////
 const CreatorSchema = new mongoose.Schema({
   creatorId: String,
+  name: String,
   email: String
 })
 
@@ -267,6 +268,7 @@ app.post("/posts", async (req, res) => {
       message: message,
       creator: {
         creatorId: queriedUser._id,
+        name: queriedUser.username,
         email: queriedUser.email
       }
     }).save()
