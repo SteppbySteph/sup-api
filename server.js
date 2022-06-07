@@ -218,6 +218,11 @@ const authenticateUser = async (req, res, next) => {
 }
 
 ///////////////////////Post section/////////////////////
+const CreatorSchema = new mongoose.Schema({
+  creatorId: String,
+  email: String
+})
+
 const PostSchema = new mongoose.Schema({
   message: {
     type: String,
@@ -233,9 +238,9 @@ const PostSchema = new mongoose.Schema({
     type: Date,
     default: () => new Date()
   },
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+  creator: {
+    type: CreatorSchema,
+    required: true
   }
 })
 
@@ -252,14 +257,18 @@ app.get("/posts", async (req, res) => {
 })
 
 //create a post
+app.post("/posts", authenticateUser)
 app.post("/posts", async (req, res) => {
-   
-  const { message, userId } = req.body
+  const { message } = req.body
+  const accessToken = req.header("Authorization")
   try {
-    const queriedUser = await User.findById(userId)
+    const queriedUser = await User.findOne({ accessToken })
     const newPost = await new Post({ 
       message: message,
-      createdBy: queriedUser
+      creator: {
+        creatorId: queriedUser._id,
+        email: queriedUser.email
+      }
     }).save()
     res.status(201).json({
       response: newPost, 
