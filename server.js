@@ -3,9 +3,7 @@ import cors from "cors"
 import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 import crypto from "crypto"
-
 import listEndpoints from "express-list-endpoints"
-import destinations from "./data/destinations.json"
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/sup-api"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -15,42 +13,13 @@ mongoose.Promise = Promise
 const port = process.env.PORT || 8080
 const app = express()
 
-// Add middlewares to enable cors and json body parsing
+///////////////////////Middlewares/////////////////////
 app.use(cors())
 app.use(express.json())
 
-// Routes
+///////////////////////Routes/////////////////////
 app.get("/", (req, res) => {
   res.send(listEndpoints(app))
-});
-
-///////////////////////Destination section/////////////////////
-app.get("/destinations", (req, res) => {
-
-  res.status(200).json({
-    data: destinations,
-    success: true,
-  })
-})
-
-app.get("/destinations/destination/:category", (req, res) => {
-
-  const { category } = req.params
-
-   const destinationByCategory = destinations.filter((destination) =>
-   destination.category.toLowerCase() === category)
-
-  if (destinationByCategory) {
-    res.status(200).json({
-      data: destinationByCategory,
-      success: true,
-    })
-  } else {
-    res.status(404).json({
-      data: "Destination not found.",
-      success: false,
-    })
-  }
 })
 
 ///////////////////////User section/////////////////////
