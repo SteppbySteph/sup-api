@@ -1,3 +1,5 @@
+Note! Updating current version
+
 # Project SUP API
 
 This sup-api repo is the backend to our final Technigo frontend project called: sup-project. 
@@ -17,3 +19,5 @@ As we wanted our posts to display the users email and username automatically in 
 ## View it live
 
 https://sup-api-js.herokuapp.com/
+
+
